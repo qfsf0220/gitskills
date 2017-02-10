@@ -3,7 +3,6 @@
 import urllib.request
 import urllib.parse
 import string
-#import scrapy
 from pyquery import PyQuery as pq
 import re
 
