@@ -7,8 +7,8 @@ from pyquery import PyQuery as pq
 import re
 
 b=[]
-ab=['徐汇臻园','东湾度假村','苑宏新村','中海瀛台','徐汇苑','南方新村','盛华景苑','徐汇华园','紫阳花园','印象欧洲','浦润苑','华唐苑','银泰苑','新凯家园一期','中冶锦城']
-a=['南方新村','华泾五村','徐汇华园']
+a=['徐汇臻园','东湾度假村','苑宏新村','中海瀛台','徐汇苑','南方新村','盛华景苑','徐汇华园','紫阳花园','印象欧洲','浦润苑','华唐苑','银泰苑','新凯家园一期','中冶锦城']
+ab=['南方新村','华泾五村','徐汇华园']
 for i in a:
     url='http://shanghai.anjuke.com/sale/rd1?from=zjsr&kw=%s' % i #安居客
     url2=urllib.parse.quote(url,safe=string.printable)
