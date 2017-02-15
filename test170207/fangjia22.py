@@ -34,14 +34,24 @@ def test(i):
     x=[d('.comm-price').text() , d2('.wrapper').find('.botline').eq(0).text() ]
     q.put(x)
 
+#
+# if __name__ == '__main__':
+#     result=list()
+#     for i in a:
+#         t1=threading.Thread(target=test,args=(i,))
+#         t1.start()
+#         t1.join()
+#         while not q.empty():
+#             result.append(q.get())
+#     for item in result:
+#         print(item)
+threadlist=[]
+for i in a:
+    t=threading.Thread(target=test,args=(i,))
+    t.setDaemon(True)
+    threadlist.append(t)
 
-if __name__ == '__main__':
-    result=list()
-    for i in a:
-        t1=threading.Thread(target=test,args=(i,))
-        t1.start()
-        t1.join()
-        while not q.empty():
-            result.append(q.get())
-    for item in result:
-        print(item)
+for t in threadlist:
+    t.start()
+for t in threadlist:
+    t.join()
