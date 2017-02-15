@@ -28,7 +28,7 @@ for i in a:
     d=pq(data)
     d2=pq(data2)
 
-    b.append([d('.comm-price').text(),d2('.wrapper').find('.botline').eq(0).text()])
+    b.append([d('.comm-price').text(), d2('.wrapper').find('.botline').eq(0).text()])
 def greenprint(ssttrr):
     return ('\033[0;32;40m%s\033[0m' % ssttrr)
 def redprint(ssttrr):
@@ -36,12 +36,11 @@ def redprint(ssttrr):
 def yellowprint(ssttrr):
     return ('\033[0;33;40m%s\033[0m' % ssttrr)
 
-c=sorted(b,key=lambda x:re.sub('\D','',x[0]))
-print (c)
-d= map(lambda x:re.sub('(（(.*)\))','',x[0]),c)
+c=sorted(b,key=lambda x:re.sub('\D', '',x[0]))
+
+d= map(lambda x:re.sub('(（(.*)\))','', x[0]),c)
 
 e= [x for x  in d ]
-print(e)
 
 for i in e :
     if '↑' in re.split('\s+',i)[5]:
