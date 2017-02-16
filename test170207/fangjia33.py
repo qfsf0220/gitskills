@@ -45,11 +45,11 @@ def get_page(url):
     data = opener.open(url2).read()
     return data
 
-def get_price(data):
-    temp_data = []
-    d=pq(data)
-    item= d('.comm-price').text()
-    _DATA.append()
+# def get_price(data):
+#     temp_data = []
+#     d=pq(data)
+#     item= d('.comm-price').text()
+#     _DATA.append()
 
 def main():
     global SHARE_Q
