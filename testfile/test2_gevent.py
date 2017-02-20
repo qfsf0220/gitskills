@@ -1,9 +1,7 @@
 from   gevent import monkey;
-from gevent import sleep
 monkey.patch_all();
 import  gevent
-import requests
-import  re,time
+import  requests,re,time
 from pyquery import PyQuery as pq
 from multiprocessing import cpu_count, Process
 headers = {"User-Agent":
@@ -29,42 +27,19 @@ bb=['徐汇臻园','东湾度假村','苑宏新村','中海瀛台','徐汇苑',
    '漓江山水花园','华泾绿苑','华泾五村','华欣家园','东湾小区',
    '馨宁公寓','徐汇新干线','爱庐世纪新苑','新弘国际城','南方城',
    '晶欣坊','华发小区','枫桦景苑','华建一街坊','华沁家园','长桥一村','长桥五村']
-cc=['浦润苑','银泰苑','中冶锦城',
-   '漓江山水花园','东湾小区','馨宁公寓','徐汇新干线','爱庐世纪新苑','新弘国际城','南方城',
-   '晶欣坊','华发小区','枫桦景苑','华建一街坊','华沁家园','长桥一村','长桥五村']
+
 t1 = time.time()
 
-def worker():
-    b=[gevent.spawn(f2,"http://shanghai.anjuke.com/sale/rd1?from=zjsr&kw="+x) for x in bb[0:15] ]
-
-
+def worker(n=15):
+    b=[gevent.spawn(f2,"http://shanghai.anjuke.com/sale/rd1?from=zjsr&kw="+x) for x in bb[0:n] ]
     gevent.joinall(b)
 
-def worker2():
-    c=[gevent.spawn(f2,"http://shanghai.anjuke.com/sale/rd1?from=zjsr&kw="+x) for x in bb[15:] ]
+def worker2(n=15):
+    c=[gevent.spawn(f2,"http://shanghai.anjuke.com/sale/rd1?from=zjsr&kw="+x) for x in bb[n:] ]
     gevent.joinall(c)
 worker()
 
 worker2()
-
-# def get_avg(lst, n):
-#     increment = len(lst) / float(n)
-#     last = 0
-#     i = 1
-#     while last < len(lst):
-#         idx = int(round(increment * i))
-#         yield lst[last:idx]
-#         last = idx
-#         i += 1
-#
-# gen_house = get_avg(b, 2)
-# processes = [Process(name="Process-{}".format(core), target=worker, args=([gen_house.__next__()])) for core in   range(2)]
-#
-# for process in processes:
-#     process.start()
-#
-#     for process in processes:
-#         process.join()
 
 print(len(result_list))
 
