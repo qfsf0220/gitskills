@@ -5,11 +5,13 @@ import gevent,requests
 from gevent import monkey
 monkey.patch_all()
 
-
+headers = {"User-Agent":
+               "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 \
+               (KHTML, like Gecko) Chrome/47.0.2526.80 Safari/537.36"}
 def fetch(url):
     try:
         s=requests.Session()
-        r=s.get(url)
+        r=s.get(url,headers=headers)
     except Exception as e :
         print(e)
     return ""
@@ -25,6 +27,7 @@ def task_start():
     print(realurl)
 
     for url in realurl:
+
         task_list.append(gevent.spawn(fetch,url))
 
         p = Process(target=process_start,args=(task_list,))
