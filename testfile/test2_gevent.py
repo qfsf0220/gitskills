@@ -15,17 +15,17 @@ def f2(url):
     data = resp.text
     print("%s bytes recived from %s" %(data,url))
 
-# gevent.joinall(
-#     [
-#     gevent.spawn(f,"https://www.python.org/"),
-#     gevent.spawn(f,"https://www.yahoo.com/"),
-#     gevent.spawn(f,"https://github.com"),
-#     gevent.spawn(f,"http://www.qfsf0220.top")]
-# )
+gevent.joinall(
+    [
+    gevent.spawn(f,"https://www.python.org/"),
+    gevent.spawn(f,"https://www.yahoo.com/"),
+    gevent.spawn(f,"https://github.com"),
+    gevent.spawn(f,"http://www.qfsf0220.top")]
+)
 
 
-a=['中海瀛台','徐汇臻园','徐汇华园','枫桦景苑']
-b=[gevent.spawn(f2,"http://shanghai.anjuke.com/sale/rd1?from=zjsr&kw="+x) for x in a]
-print(b)
-
-gevent.joinall(b)
+# a=['中海瀛台','徐汇臻园','徐汇华园','枫桦景苑']
+# b=[gevent.spawn(f2,"http://shanghai.anjuke.com/sale/rd1?from=zjsr&kw="+x) for x in a]
+# print(b)
+#
+# gevent.joinall(b)
