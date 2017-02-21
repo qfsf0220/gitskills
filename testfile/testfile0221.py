@@ -52,3 +52,19 @@ area = area()
 area.width=10
 area.height=20
 print(area.getsize())
+
+
+#属性函数
+class area2:
+    def __init__(self):
+        self.width = 1;
+        self.height = 1;
+    def getsize(self):
+        return  self.width,self.height
+
+    size = property(getsize)
+area2 = area2()
+
+area2   .width = 11;
+area2.height= 22;
+print(area2.getsize())
