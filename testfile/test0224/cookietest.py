@@ -3,6 +3,7 @@ import  http.cookiejar
 import  urllib.request
 import  urllib.parse
 
+
 url = "http://www.qfsf0220.top/auth/login"
 
 postdata = urllib.parse.urlencode(
@@ -35,3 +36,7 @@ print(eval(result)["msg"])  #可以通过eval函数转换成dict格式 ,变量�
 import  sys
 print(sys.getdefaultencoding())
 
+import requests
+
+rr= requests.get("http://www.qfsf0220.top/user")
+print(rr)
