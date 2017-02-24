@@ -30,7 +30,8 @@ opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cookie))
 
 r=opener.open(req)
 
-print(r.read().decode('unicode-escape'))
+result = r.read().decode('unicode-escape')
+print(eval(result)["msg"])  #可以通过eval函数转换成dict格式 ,变量不支持eval
 import  sys
 print(sys.getdefaultencoding())
 
