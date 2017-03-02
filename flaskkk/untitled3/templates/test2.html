@@ -1,0 +1,96 @@
+<!doctype html>
+<title xmlns="http://www.w3.org/1999/html">Hello test</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+ <h1>Hello boss!</h1>
+
+{#<form>#}
+{#    <input type="text" placeholder="这个是账号" name="text">#}
+{#    <input type="password" placeholder="这个是密码" name="password">#}
+{#    <textarea  placeholder="textaaaarea" name="textarea" style="resize: none">  </textarea>#}
+{#    <input type="submit" value="提交" />#}
+{#    <input type="file" placeholder="fillle" name="file">#}
+{#</form>#}
+{##}
+{##}
+{#<form>#}
+{#账号:#}
+{#<input type="text" name="username" />#}
+{#<br />#}
+{#密码:#}
+{#<input type="password" name="password" />#}
+{#<input type="submit" value="提交" />#}
+{##}
+{#</form>#}
+
+ <p>Request URL: {{ request.url }}</p>
+ <p>User: {{ session.user }}</p>
+ <p>DB: {{ g.db }}</p>
+ <p>host: {{ config.DEBUG }}</p>
+ <p>file name: {{ appname }}</p>
+ <p>time: {{ current_time() }}</p>
+ <p>current date: {{ current_time("%Y-%m-%d") }}</p>
+
+{#{% with messages = get_flashed_messages() %}#}
+{# {% if messages %}#}
+{#  {% for message in messages %}#}
+{#   Flash Message: {{ message }}</li>#}
+{#  {% endfor %}#}
+{# {% endif %}#}
+{#{% endwith %}#}
+
+{% set a =['qfsf','0220'] %}
+
+<div style='color:hotpink'>{{ a[0].upper()}}</div>
+<p>xxx =  {{xxx(11,22)}}</p>
+<h2>
+<ul>
+{% for i in ['zk','ypq','xxd','yy','qf']%}
+    <li>{{ i }}</li>
+{% endfor%}
+</ul>
+</h2>
+{% set list=['qf','sf','qpr']%}
+{% set str2='<h1>rswfer231</h1>'%}
+<pre>'{{list|join(',')}}'</pre>
+<pre>'{{str2|striptags|title}}'</pre>
+<pre>'{{str2|join(',')}}'</pre>
+
+<h1>
+{%    for  i in list if not i.hidden %}
+    {% if loop.index is  divisibleby 3 %}
+        {{i}}
+    {%   endif %}
+{%endfor%}
+</h1>
+
+<h3>
+<ul >
+{%  for i in  result  %}
+    <li>
+    {{ i }}
+    </li>
+
+{% endfor %}
+</ul>
+</h3>
+
+<script>
+function displayDate() {
+    var arr=[66,88,'钱峰'];
+    document.getElementById('demo').innerHTML=arr;
+}
+
+</script>
+<p id="demo" style="margin-left: 20% ;color: #50af76">  </p>
+<button type="button" onclick="displayDate()">lailailai</button>
+
+
+
+<h1>==================================</h1>
+<div align="center">
+<form method="post">
+<input type="text" name="username" placeholder="username"><br>
+<input type="password" name="password" placeholder="password"><br>
+    <input type="submit" value="提交">
+    <input type="reset" value="重置">
+</form></div>

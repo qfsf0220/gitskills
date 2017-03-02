@@ -1,0 +1,63 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}Flasky{% endblock %}
+{% block navbar %}
+<div class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">QFSF</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="/">Home</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <form method="post">
+{#    <input type="text" name="text1" value="text1" placeholder="text1">#}
+{#    <br>#}
+{#    <input type="text" name="text2"   value="text2" placeholder="text2">#}
+{#    <br>#}
+    {{ form.text1(placeholder="账号") }}
+    <br><br>
+    {{ form.text2(placeholder='密码') }}
+            <br><br>
+
+    <input type="submit" value=" go ">
+</form>
+
+<div style="font-weight: bold ;color: #30537e;"><br>
+{% if form.data['text1'] %}
+{{ 'account is:' ~ form.data['text1']}}
+{% endif %}
+<br>
+{% if form.data['text2'] %}
+{{ 'password is:' ~ form.data['text2'] }}
+{% endif %}
+</div>
+<div  style="color: #920d19;font-weight: bold"><br>
+{% if message %}
+{{ message }}
+{% endif %}
+</div>
+    </div>
+</div>
+{% endblock %}
+
+
+    {% block footer %}
+        <footer>
+    Copy 2016 by <a href="www.163.com">qfsf</a>
+        </footer>
+    {% endblock %}

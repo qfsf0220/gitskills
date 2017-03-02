@@ -1,0 +1,39 @@
+*{
+    margin:0px;
+    padding:0px;
+}
+p{
+    color:rosybrown;
+}
+
+h1,h2{
+    color:red;
+    font:"Arial Black";
+    margin:20px;
+    padding:10px;
+}
+.this_is_div_s_class{
+    color: #000fdf;
+}
+
+a.this_is_div_s_class2{
+    background: pink;
+}
+
+.this_is_div_s_class{
+    color: #000fdf;
+}
+.this_is_div_s_class2{
+    background: #fff5ba;
+}
+.this_is_div_s_class.this_is_div_s_class2{
+    font-style: italic;
+}
+
+p aa cc{
+    color:crimson;
+}
+
+p>bb {
+    color: greenyellow;
+}

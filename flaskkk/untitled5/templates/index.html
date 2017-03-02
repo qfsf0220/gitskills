@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>this is main page</title>
+</head>
+<body>
+
+
+<div align="center">
+
+<h1 style="color:deepskyblue">USER PAGE</h1>
+
+<h2 style="color:silver">
+{% if message %}  {{ message }}  {% endif  %}
+</h2>
+
+<form method="post">
+{#    <input type="text" name="username" placeholder="输入你的用户名"><br><br>#}
+{#    <input type="password" name="password" placeholder="输入你的密码"><br><br>#}
+
+    账号：{{   form.username }}
+    <br>
+    密码：{{form.password}}
+    <br><br>
+
+<input type="submit" value="提交">
+
+
+</form>
+
+</div>
+
+</body>
+</html>
