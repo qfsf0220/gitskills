@@ -25,8 +25,6 @@ import MySQLdb as mysql
 import xlsxwriter
 import sys,time,os
 
-
-
 rankid = sys.argv[1]
 reload(sys)
 sys.setdefaultencoding('utf8')
