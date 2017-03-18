@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>test2</title>
+</head>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('button').on('click',function () {
+            alert("hello...")
+            $('.test').hide(500);
+            $('.test').show(500);
+        });
+    })
+</script>
+
+<body>
+    <button> 点击</button>
+
+    <div class='test'></div>
+
+</body>
+
+
+
+</html>
