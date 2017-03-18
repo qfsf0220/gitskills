@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script type="text/javascript">
+        //10进制
+        var a = 2;
+        a=-23;
+        a=12.3;
+        a=.22e2; //0.22的 10的2次方 等于22
+        a = .22e-2; //0.22 的 10的-2次方  0.0022
+        //16进制
+        var b = 0xABCDEF;
+        b= 0XA0;
+        //b=0xff;
+        //8进制  0-7
+        //特殊 值  NaN  not a number 1.79e309 无穷大 -1.79e309 负无穷大
+        var c = 0123;
+        c=01234;
+        alert(a);
+        alert(b);
+        alert(c);
+        var d  =0/0; //Nan 需要isNan 来检测
+        alert(isNaN(d)) // NaN == NaN 结果不对。
+
+
+    </script>
+</body>
+</html>
