@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title3</title>
+</head>
+<body>
+    <script>
+        function test(qq) {
+            alert("this is a function test----"+qq)
+            //如果没有return默认是 undefined
+        }
+
+        test("123xxx123");
+
+        function test2() {
+            return("qfsf")
+        }
+        alert(test2())
+
+        function addtest(n1,n2) {
+            n1=n1||123; //js 不支持形参直接赋默认值 如果需要，这样写
+            n2=n2||345;// n2如果没有传餐 则 n2就是345 （还可以通过arguments对象来实现）
+            return n1+n2;
+        }
+        alert(addtest()); //这里 就直接用了123 + 345
+        alert(addtest(77,88)); //这里就是 77+88
+    </script>
+
+
+</body>
+</html>
