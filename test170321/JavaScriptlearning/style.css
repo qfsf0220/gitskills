@@ -1,0 +1,18 @@
+#test {
+    width: 50px;
+    height: 20px;
+    background-color: #aa7537;
+}
+#in1{
+    width: 50px;
+}
+
+div {
+    background-color: #9ddfe9;
+    width : 100%;
+    height: 100%;
+}
+
+body{
+    background-color: papayawhip;
+    font-size: xx-small}

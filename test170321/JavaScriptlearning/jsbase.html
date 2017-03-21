@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>base</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+    //这行是注释
+    /*注释 1
+    注释 2
+    注释 3  */
+    var a = "hello";
+    document.write("<h1>"+a+"<h1>")
+</script>
+<script>
+    function aa() {
+        var age =13;
+        if(age >18){
+            alert("ok");
+        }else {
+            alert("a\nb\nc");
+        }
+    }
+    var name = "小伙子";
+    var age = 25;
+    var test = "abcdefghijklmn";
+    document.write(`弄好${name},你${age}岁了是伐？`);
+    document.write("<br>");
+    document.write("弄好"+name+",你"+age+"岁了是伐？"+"<br>");
+    document.write("name 多少个字符:"+name.length+"<br>");
+    document.write("第二和字符是："+name[1]+"<br>");
+    document.write(test.toLowerCase()+test.substring(2,7).toUpperCase()+test.indexOf("f")+test.substring(0,5)+test.fontcolor())
+</script>
+<script>
+    var arr = [1,2,3];
+    var len = arr.length;
+    document.write(len+"<br>");
+    arr.length  = 6; //[1, 2, 3, undefined × 3]
+    arr[0]=['qq',5,'ff'];
+    document.write(arr);
+
+</script>
+
+
+</head>
+<body>
+<input id = "in1" onblur="if(this.value.replace(/^ +| +$/g,'')=='')alert('不能为空!')">
+<br>
+<button aria-checked="true" id="test" onclick="aa()">点击</button>
+<div>12345678<br>234567</div>
+</body>
+</html>
