@@ -1,7 +1,8 @@
 import pyautogui as pg
+import time
 pg.FAILSAFE=False
 print('关闭鼠标到屏幕最左面以后的错误提示')
-pg.PAUSE = 0.5 #默认移动以后停顿时间是0.1秒 这里设置为0.5秒
+#pg.PAUSE = 0.5 #默认移动以后停顿时间是0.1秒 这里设置为0.5秒
 #for i in range(10):
 #	pg.moveRel(0,100,duration=0.15)
 #	pg.moveRel(100,0,duration=0.15)
@@ -19,17 +20,16 @@ try:
 except KeyboardInterrupt:
     print("\nDone\n")
 """
-print('''    ++>  x->
-   (0,0).----------------->
-        |
-    ++  |
-    y|  |
-     |  |
-     v  |
-        |
-        |
-        v
-
+print('''
+0,0       X increases -->
++---------------------------+
+|                           | Y increases
+|                           |     |
+|   1920 x 1080 screen      |     |
+|                           |     V
+|                           |
+|                           |
++---------------------------+ 1919, 1079
 ''')
 
 pg.moveTo(0,0,duration=0.2) #duration 位移时间
@@ -46,23 +46,30 @@ print(c)
 
 pg.click(c)
 pg.click(10,10,button='right')
-pg.moveTo(1000,50),pg.click()
-pg.moveTo(1166,50)
-pg.dragTo(1400,50,duration=0.25)
+
+pg.moveTo(1166,50,duration=0.25)
+
+time.sleep(1)
+pg.dragTo(1400,50,duration=1)
 #pg.dragRel()  #以当前位置拖动
 
 #############
-import pyperclip  # 这个可以把数据保存到剪贴板
-import functools
-a=functools.reduce(lambda x,y:str(x)+'\n'+str(y),[ i for i in range(500)])
-pyperclip.copy(a) #这里已经保存到剪贴板 可用notpad++黏贴 win自带文本不行》
+#import pyperclip  # 这个可以把数据保存到剪贴板
+#import functools
+#a=functools.reduce(lambda x,y:str(x)+'\n'+str(y),[ i for i in range(500)])
+#pyperclip.copy(a) #这里已经保存到剪贴板 可用notpad++黏贴 win自带文本不行》
 #这里都是为 scroll 做准备  scroll 向上 scroll（负数） 向下滚动
-import time
-pg.click();time.sleep(3);pg.scroll(250)
+
+#pg.click();time.sleep(3);pg.scroll(250)
 
 ##############屏幕处理
 imagetest =pg.screenshot()
-imagetest.getpixel( (0,0) ) #这里传入元祖 得到一个R G B 元组
+rgb = imagetest.getpixel( (400,200) ) #这里传入元祖 得到一个R G B 元组
+print(rgb)
+print (   pg.pixelMatchesColor(401,201,rgb)  )
+
+
+
 
 
 
