@@ -15,7 +15,8 @@ import time
 def search_price(houses_name):
     retry_time = 3
     sleep_time = 1
-    url = "http://shanghai.anjuke.com/sale/rd1?from=zjsr&kw=%s" % houses_name
+    #url = "http://shanghai.anjuke.com/sale/rd1?from=zjsr&kw=%s" % houses_name
+    url = "http://shanghai.anjuke.com/sale/?kw=%s" % houses_name
     headers = {"User-Agent":
                    "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.80 Safari/537.36"}
     for i in range(retry_time):

@@ -35,16 +35,7 @@ titlelist = re.findall(r'class="s xst">(.*)</a>',text)
 titlelist = titlelist[0:5]
 print(titlelist)
 
-
-for i in titlelist:
-    a=1
-    print(i)
-    linkis=bb.find_element_by_link_text(i)
-
-    linkis.click()
-    time.sleep(5)
-    handles = bb.window_handles
-    bb.switch_to.window(handles[a])
+])
     a+=1
     # time.sleep(5)
     # btext = bb.find_element_by_id('fastpostmessage')
