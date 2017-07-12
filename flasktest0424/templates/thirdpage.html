@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block content %}
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="/static/template.css" >
+    {% if title %}
+    <title>{{ title }}  -  qf</title>
+    {% else %}
+    <title>xxxxx</title>
+    {% endif %}
+
+</head>
+<body>
+<nav>
+   <ul>
+       <li><a href="#">QFSF</a></li>
+       <li><a href="#">COME</a></li>
+       <li><a href="#">FROM</a></li>
+       <li><a href="#">RUBBISH</a></li>
+       <li><a href="#">HUAJING</a></li>
+       <li><a href="#">TOWN</a></li>
+   </ul>
+</nav>
+{% if user %}
+    <p>hi  ,   {{ user.myname }} !</p>
+{% else %}
+    <p>nihao nihao ,xxxxxxx</p>
+{% endif %}
+{% for i in familys %}
+<p>{{ i.family.name }}</p>
+{% endfor %}
+
+<div id="start"> start </div>
+<button id="b1">坐标</button>
+<div id="ddd"></div>
+
+<div class="menu">
+  <div id="item">栏目list</div>
+  <div id="submenu">
+    <a href="/">访问主页</a>
+    <a href="/testttt">查看浏览器信息</a>
+    <a href="/asdasd/aa">访问asdasd/aa</a>
+  </div>
+</div>
+
+<script>
+    $("#item").click(function() {
+  $("#submenu").slideToggle(300);
+});
+    $("#start").html('<b style=color:red>gogo!</b>');
+    $("#b1").click(function (event) {
+        $("#start").html(("X:"+event.pageX+"   Y:"+event.pageY),2000);
+        var div = $("#ddd");
+        div.animate({opacity: 1});
+    div.animate({height: '+=100px', width: '+=100px', top: '+=100px'}, 500);
+    div.animate({height: '-=100px', width: '-=100px', left: '+=100px'}, 500);
+    div.animate({height: '+=100px', width: '+=100px', top: '-=100px'}, 500);
+    div.animate({height: '-=100px', width: '-=100px', left: '-=100px'}, 500);
+    div.animate({opacity: 0.5});
+    })
+
+    </script>
+
+<p class="normal">This paragraph is normal.</p>
+<p class="italic">This paragraph is italic.</p>
+<p class="oblique">This paragraph is oblique.</p>
+
+<p>The following list has list-style-position: <strong>inside</strong>.</p>
+<ul >
+   <li>Red</li>
+   <li>Green</li>
+   <li>Blue</li>
+</ul>
+<div id="divshadow"></div>
+
+
+
+</body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,115 @@
+body{
+    background-image: url(https://www.sololearn.com/uploads/css_logo.png);
+    background: url(http://www.sololearn.com/images/bg2.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+p {
+    font-size: large;
+    color: rgba(72, 191, 72, 0.53);
+    /*background-color: antiquewhite;*/
+}
+#basebody{
+    background-color: #b014eb;
+}
+
+#ddd {
+    background:orange;
+    height:80px;width:80px;
+    position:absolute;
+    border-radius: 50%;
+    opacity: 0.5;
+}
+#item {
+    background-color: #2b62af;
+    color: #ff36ff;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+#item:hover, #item:focus {
+    background-color: #3477d6;
+    color:white;
+    text-shadow: 2px 2px 2px red;
+}
+.menu {
+    /*position: relative;*/
+    display: inline-block;
+}
+#submenu {
+    display: none;
+    position: absolute;
+    background-color: #3e8e41;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+#submenu a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+#submenu a:hover {
+    /*background-color: #4CAF50*/
+    background-image:url("/static/wood.jpg") ;
+    color: rgb(27, 175, 23);
+    font-weight: bolder;
+    text-shadow: 2px 2px 2px #000;
+}
+
+
+
+p.normal {
+   font-style: normal;
+    text-shadow: 22px 4px 5px black;
+}
+p.italic {
+   font-style: italic;
+    text-align: center;
+    vertical-align: -20px;
+}
+p.oblique {
+   font-style: oblique;font-variant: small-caps;color: brown;
+}
+
+ul {
+   list-style-image: url("http://club.kdslife.com/ui/img/bg_h.png");
+   list-style-position: inside;
+    list-style-type: square;
+}
+
+#divshadow {
+   width: 300px;
+   height: 100px;
+   background-color: #5995cd;
+   box-shadow: 10px -10px 5px 5px #7e6688;
+}
+
+
+nav {
+   padding: 50px 0;
+   min-width: 500px;
+}
+nav ul {
+   background: linear-gradient(90deg,
+     rgba(255, 255, 255, 0) 0%,
+     rgba(255, 255, 255, 0.2) 25%,
+     rgba(255, 255, 255, 0.2) 75%,
+     rgba(255, 255, 255, 0) 100%);
+   box-shadow: 0 0 25px rgba(0, 0, 0, 0.1),
+     inset 0 0 1px rgba(255, 255, 255, 0.6);
+}
+nav ul li {
+   display: inline-block;
+}
+nav ul li a {
+   padding: 10px;
+   color: #FFFFFF;
+   font-size: 18px;
+   font-family: Arial;
+   text-decoration: none;
+   display: block;
+ }

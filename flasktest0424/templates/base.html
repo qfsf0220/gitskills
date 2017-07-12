@@ -1,0 +1,17 @@
+<html lang="en">
+<head>
+    <script src="/static/jquery.js"></script>
+    <meta charset="UTF-8">
+    {% if title %}
+    <title>{{ title }} 你好</title>
+    {% else %}
+    <title>xxxxxxxx</title>
+    {% endif %}
+</head>
+<body style="margin:0px;;">
+    <div id="basebody" style="align-content: center;text-align: center;margin-left:0px;margin-right: 0px;margin-top: 0px;font-family:幼圆;font-size: large;font-weight: bolder;text-shadow: #b014eb 1px 2px 3px ;background-color:#cfb1eb"><a href="/">欢迎你 我的朋友</a> <hr></div>
+
+
+{% block content %}{% endblock %}
+</body>
+</html>
