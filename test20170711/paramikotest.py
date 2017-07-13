@@ -1,16 +1,17 @@
 import paramiko
 import sys,os
 import configparser
-from functools import reduce
 
 conf= configparser.ConfigParser()
 conf.read('config.ini')
 conf1=conf.get('conf1','conf')
 conf2=conf.get('conf2','conf')
+ip1=conf.get('host1','ip')
+ip2=conf.get('host2','ip')
 
 class Comm:
     def __init__(self,ip,port,user,password,mysql_password):
-        self.ip= ip
+        self.ip=ip
         self.port=port
         self.user=user
         self.password= password
@@ -22,16 +23,17 @@ class Comm:
             trans.connect(username=self.user,password=self.password)
             ssh =paramiko.SSHClient()
             ssh._transport=trans
+            print(cmd)
             a,b,c=ssh.exec_command(cmd)
             if b.channel.recv_exit_status()==0:
                 stdout=b.readlines()
-                # for i in stdout:
-                #     print(i)
+                for i in stdout:
+                    print(i)
                 return stdout
             else:
                 stderr=c.readlines()
-                # for i in stderr:
-                #     print(i)
+                for i in stderr:
+                    print(i)
                 return stderr
         except Exception as e :
             print(e)
@@ -44,6 +46,7 @@ class Comm:
             trans.connect(username=self.user,password=self.password)
             sftp =paramiko.SFTPClient.from_transport(trans)
             files=[x for x in args]
+            from functools import reduce
             print(reduce(lambda x,y: x+','+y,files)+' where be thansfor')
             for f in files:
                 sftp.put(os.path.join(localpath,f),remotepath+'/'+f,callback=self.progress_bar)
@@ -59,33 +62,42 @@ class Comm:
         sys.stdout.flush()
 
 class config(Comm):
-    def install_mysql(self,my_cnf):
+    def install_mysql(self,my_cnf,ip):
         super().run_cmd("echo 'export PATH=$PATH:/sumscope/mysql/bin' >> /etc/profile && source /etc/profile")
         super().run_cmd(
-            'yum install -y libaio && mkdir /sumscope && tar xf  mysql5.6.22.tar -C /sumscope && mv /sumscope/my.cnf /etc/my.cnf && mv /sumscope/mysqld /etc/init.d/mysqld &&chown -R mysql. /sumscope/mysql ')
-        super().run_cmd("echo '%s'"%(my_cnf))
-        super().run_cmd('mysql -uroot -p{0} -S /opt/sumscope/mysql/mysql.sock -e "grant replication slave, replication client on *.* to \'repl\'@\'{1}\' identified by \'1234\';"  ' .format(self.mysql_password,self.ip))
-        super().run_cmd('mysql -uroot -p%s -S /opt/sumscope/mysql/mysql.sock -e " flush privileges;" '%(self.mysql_password))
-
+            'yum install -y libaio && mkdir -p /sumscope && tar xf  /tmp/mysql5.6.22.tar -C /sumscope &&mkdir -p /sumscope/mysql/{run,log} && mv /sumscope/mysql/data/auto.cnf  /sumscope/mysql/data/auto.cnf.bak    && mv /sumscope/mysqld /etc/init.d/mysqld &&  chown -R mysql. /sumscope/mysql ')
+        super().run_cmd("echo '%s' > /etc/my.cnf"%(my_cnf))
+        super().run_cmd("/etc/init.d/mysqld start")
+        super().run_cmd('mysql -uroot -h127.0.0.1 -e "grant replication slave, replication client on *.* to \'repl\'@\'{0}\' identified by \'1234\';"  ' .format(ip))
+        super().run_cmd('mysql -uroot -h127.0.0.1 -e " flush privileges;" ')
+    # @staticmethod
     def get_pos(self):
-        a=super().run_cmd('mysql -uroot -p%s -S /opt/sumscope/mysql/mysql.sock  -e " show master status;  "'%(self.mysql_password))
+        a=super().run_cmd('mysql -uroot -h127.0.0.1 -e " show master status;  "')
         file = a[1].split('\t')[0]
         pos = a[1].split('\t')[1]
         return (file,pos)
 
+    def start_slave(self,ip):
+        super().run_cmd("mysql -uroot -h127.0.0.1 -e \"change master to master_host='{0}',master_user='repl', master_password='1234', master_port=3306, master_log_file='{1}', master_log_pos={2}, master_connect_retry=30; \"".format(ip,self.get_pos()[0],self.get_pos()[1]))
+        super().run_cmd("mysql -uroot -h127.0.0.1 -e 'start slave;'")
 
+if __name__=='__main__':
 
-comm=config(conf.get('host1', 'ip'),int(conf.get('host1', 'port')),conf.get('host1', 'user'),conf.get('host1', 'password'),conf.get('mysql','root_password'))
-
-# comm.run_cmd('ls /tmp')
-comm.install_mysql(conf1)
-pos1,pos2=comm.get_pos()
-print(pos1)
-print(pos2)
-
-
-
-
-# comm.sftpfile('E:\\htmltest\\this-a-test','/tmp','README.md','webstormfirst.html')
-# comm.run_cmd('yum install -y libaio && mkdir /sumscope && tar xf  mysql5.6.22.tar -C /sumscope && mv /sumscope/my.cnf /etc/my.cnf && mv /sumscope/mysqld /etc/init.d/mysqld &&chown -R mysql. /sumscope/mysql ')
-
+    print("start host1")
+    comm=config(conf.get('host1', 'ip'),int(conf.get('host1', 'port')),conf.get('host1', 'user'),conf.get('host1', 'password'),conf.get('mysql','root_password'))
+    comm.sftpfile('D:\\','/tmp','mysql5.6.22.tar')
+    comm.install_mysql(conf2,ip2)
+    file,pos=comm.get_pos()
+    print(file)
+    print(pos)
+    print("start host2")
+    comm2 = config(conf.get('host2', 'ip'), int(conf.get('host2', 'port')), conf.get('host2', 'user'),
+                  conf.get('host2', 'password'), conf.get('mysql', 'root_password'))
+    comm2.sftpfile('D:\\','/tmp','mysql5.6.22.tar')
+    comm2.install_mysql(conf1,ip1)
+    file,pos=comm2.get_pos()
+    print(file)
+    print(pos)
+    print("start slave")
+    comm.start_slave(ip2)
+    comm2.start_slave(ip1)
