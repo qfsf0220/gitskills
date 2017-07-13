@@ -23,17 +23,16 @@ class Comm:
             trans.connect(username=self.user,password=self.password)
             ssh =paramiko.SSHClient()
             ssh._transport=trans
-            print(cmd)
             a,b,c=ssh.exec_command(cmd)
             if b.channel.recv_exit_status()==0:
                 stdout=b.readlines()
-                for i in stdout:
-                    print(i)
+                # for i in stdout:
+                #     print(i)
                 return stdout
             else:
                 stderr=c.readlines()
-                for i in stderr:
-                    print(i)
+                # for i in stderr:
+                #     print(i)
                 return stderr
         except Exception as e :
             print(e)
@@ -47,7 +46,7 @@ class Comm:
             sftp =paramiko.SFTPClient.from_transport(trans)
             files=[x for x in args]
             from functools import reduce
-            print(reduce(lambda x,y: x+','+y,files)+' where be thansfor')
+            print(reduce(lambda x,y: x+','+y,files)+' will be thansfor')
             for f in files:
                 sftp.put(os.path.join(localpath,f),remotepath+'/'+f,callback=self.progress_bar)
         except Exception as e:
@@ -82,7 +81,6 @@ class config(Comm):
         super().run_cmd("mysql -uroot -h127.0.0.1 -e 'start slave;'")
 
 if __name__=='__main__':
-
     print("start host1")
     comm=config(conf.get('host1', 'ip'),int(conf.get('host1', 'port')),conf.get('host1', 'user'),conf.get('host1', 'password'),conf.get('mysql','root_password'))
     comm.sftpfile('D:\\','/tmp','mysql5.6.22.tar')
