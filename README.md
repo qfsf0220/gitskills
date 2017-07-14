@@ -5,7 +5,7 @@ rookie learning
 
 **test**
 _test_
-
+... `all` is test
 
 An [example][id]. Then, `anywhere`
 else in the doc, define the link:
