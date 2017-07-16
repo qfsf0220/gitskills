@@ -83,3 +83,16 @@ def a(arg):
 def myfunc():
     print('ok')
 myfunc()
+
+
+def a(arg):
+    def _a(func):
+        def __a(*a,**aa):
+            print(func.__name__+'~~~'+str(arg))
+        return __a
+    return _a
+@a('')
+def testfun():
+    pass
+
+testfun()
