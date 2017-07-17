@@ -52,23 +52,49 @@ import time
 #
 # print(titttime())
 #
+#
+# def tt(aa):
+#     def wrapper(name):
+#         '''
+# 123412341234
+#         '''
+#         a=time.time()
+#         aa()
+#         b=time.time()
+#
+#         print('hi:'+name+','+'the function <'+aa.__name__+'> cost'+str(b-a)+'seconds')
+#         return wrapper.__doc__
+#     return wrapper
+# @tt
+# def xyx():
+#     time.sleep(2)
+#     print('done')
+#
+# xyx('qf')
+# print(xyx('qf'))
 
-def tt(aa):
-    def wrapper(name):
-        '''
-123412341234
-        '''
-        a=time.time()
-        aa()
-        b=time.time()
+def a(arg):
+    if arg==1:
+        def _a(func):
+            def __a(*a,**aa):
+                starttime=time.time()
+                func(*a,**aa)
+                endtime=time.time()
+                print('hi!'+str(arg)+',cost:'+str(int(endtime-starttime))+'seconds')
+            return __a
+        return _a
+    else:
+        def _a(func):
+            def __a(*a,**aa):
+                func(*a,**aa)
+            return __a
+        return _a
 
-        print('hi:'+name+','+'the function <'+aa.__name__+'> cost'+str(b-a)+'seconds')
-        return wrapper.__doc__
-    return wrapper
-@tt
-def xyx():
+@a(1)
+def b(a,b,c,d):
     time.sleep(2)
-    print('done')
+    print(a,b,c,d)
 
-xyx('qf')
-print(xyx('qf'))
+b(1,2,3,4)
+b(2,3,4,5)
+
