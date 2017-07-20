@@ -15,4 +15,4 @@ class example:
 if __name__ =='__main__':
     ex=example()
     ex.t2func()
-    ex.t2func2(5,80)
+    ex.t2func2('is',80)
