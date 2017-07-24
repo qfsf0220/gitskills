@@ -74,8 +74,29 @@ for i in xx2:
 # db.session.commit()
 # print("insert ok.")
 
+#####select
 uuu = abc.query.all()
-qf=abc.query.filter_by(username='qf').first()
-print(qf)
-print(qf.username)
-print(qf.email)
+# print(uuu)
+findout=abc.query.filter_by(id=3).first()
+# findout=abc.query.filter(abc.id=='3').first()
+print(findout)
+# print(qf.username)
+# print(qf.email)
+findout_3_1=abc.query.limit(1).offset(3)#从第三行开始选 选1行
+print(findout_3_1)
+#####update
+yunwei=abc.query.filter_by(username='yunwei').first()
+yunwei.email='aaaaaa@aaaaa.com'
+db.session.add(yunwei)
+db.session.commit()
+
+
+###delete
+yy= abc.query.filter_by(username='yy').first()
+db.session.delete(yy)
+db.session.commit()
+
+
+
+
+
