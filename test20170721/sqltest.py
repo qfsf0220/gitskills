@@ -57,25 +57,25 @@ class abc(db.Model):
 
 db.create_all()
 
-for i in ['qf','sf','qpr','we','are','family']:
-    # db.session.add('abc("%s","%s@%s.com")'%(i,i,i) )
-    "abc('%r','%r@%r.com')"%(i,i,i)
-db.session.commit()
-print("insert ok.")
-# user1=abc('qf','qf@qf.com')
-# user2=abc('sf','sf@sf.com')
-# user3=abc('qpr','qpr@qpr.com')
-# user4=abc('we','we@we.com')
-# user5=abc('are','are@are.com')
-# user6=abc('family','family@family.com')
-#
-# db.session.add(user1)
-# db.session.add(user2)
-# db.session.add(user3)
-# db.session.add(user4)
-# db.session.add(user5)
-# db.session.add(user6)
-# db.session.add(abc('abc','abc@abc.com'))
+lx=['qf','zk','ypq','xxd','yy','yunwei']
+lx2 =list( map(lambda x: ('abc("%s","%s@%s.com")'% (x,x,x)),lx) )
+userlist=['user'+str(x+1) for x in range(len(lx))]
+
+
+xx=list(zip(userlist,lx2))
+xx2= list(map(lambda x:x[0]+'='+x[1],xx))
+
+for i in xx2:
+    exec(i)
+
+# for i in userlist:
+#     exec('db.session.add(%s)' % i)
 #
 # db.session.commit()
 # print("insert ok.")
+
+uuu = abc.query.all()
+qf=abc.query.filter_by(username='qf').first()
+print(qf)
+print(qf.username)
+print(qf.email)
