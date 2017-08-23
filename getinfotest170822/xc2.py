@@ -47,20 +47,58 @@ def info(a):
     qudaodatime=(dictr['fis'][a]['at'])
     quchufatime=(dictr['fis'][a]['dt'])
     quhangban= (dictr['fis'][a]['fn'])
+    qupricechild= (dictr['fis'][a]['scs'][2]['chip'])
 
+#    huichufa= (dictr2['fis'][a]['dpbn'])
+#    huimudi= (dictr2['fis'][a]['apbn'])
+#    huiprice= (dictr2['fis'][a]['lp'])
+#    huidaodatime=(dictr2['fis'][a]['at'])
+#    huichufatime=(dictr2['fis'][a]['dt'])
+#    huihangban= (dictr2['fis'][a]['fn'])
+#    huipricechild= (dictr2['fis'][a]['scs'][2]['chip'])
+#    return ('出发地:'+quchufa+'\t\t'+huichufa+'\n'+'出发时间:'+quchufatime+'\t'+huichufatime+'\n'+'目的地:'+qumudi+'\t\t'+huimudi+'\n'+ '抵达时间:'+qudaodatime+'\t'+huidaodatime+'\n'+'价格:'+str(quprice)+'\t\t\t'+str(huiprice)+'\n'+ '儿童价格:'+str(qupricechild)+'\t\t'+str(huipricechild)+'\n'  +'航班号:'+quhangban+'\t\t\t'+huihangban+'\n----------------------------------------------')
+    return ('出发地:'+quchufa+'\t\t'+'\n'+'出发时间:'+quchufatime+'\t'+'\n'+'目的地:'+qumudi+'\t\t'+'\n'+ '抵达时间:'+qudaodatime+'\t'+'\n'+'价格:'+str(quprice)+'\t\t\t'+'\n'+ '儿童价格:'+str(qupricechild)+'\t\t'+'\n'  +'航班号:'+quhangban+'\t\t\t'+'\n')
+
+def info2(a):
     huichufa= (dictr2['fis'][a]['dpbn'])
     huimudi= (dictr2['fis'][a]['apbn'])
     huiprice= (dictr2['fis'][a]['lp'])
     huidaodatime=(dictr2['fis'][a]['at'])
     huichufatime=(dictr2['fis'][a]['dt'])
     huihangban= (dictr2['fis'][a]['fn'])
-    return ('出发地:'+quchufa+'\t\t'+huichufa+'\n'+'出发时间:'+quchufatime+'\t'+huichufatime+'\n'+'目的地:'+qumudi+'\t\t'+huimudi+'\n'+ '抵达时间:'+qudaodatime+'\t'+huidaodatime+'\n'+'价格:'+str(quprice)+'\t\t\t'+str(huiprice)+'\n'+'航班号:'+quhangban+'\t\t\t'+huihangban+'\n----------------------------------------------')
+    huipricechild= (dictr2['fis'][a]['scs'][2]['chip'])
+    return ('出发地:'+huichufa+'\t\t'+'\n'+'出发时间:'+huichufatime+'\t'+'\n'+'目的地:'+huimudi+'\t\t'+'\n'+ '抵达时间:'+huidaodatime+'\t'+'\n'+'价格:'+str(huiprice)+'\t\t\t'+'\n'+ '儿童价格:'+str(huipricechild)+'\t\t'+'\n'  +'航班号:'+huihangban+'\t\t\t'+'\n')
 
 infolist=[]
+infolist2=[]
 for i in range(len(dictr['fis'])):
     infolist.append(info(i))
+    infolist2.append(info2(i))
 sortinfo =sorted(infolist,key=lambda x :int(re.search(r'.*价格:(\d+).*',x).group(1)))
-for i in sortinfo:
-    print(i)
+sortinfo2 =sorted(infolist2,key=lambda x :int(re.search(r'.*价格:(\d+).*',x).group(1)))
+
+zz=list(zip(sortinfo,sortinfo2))
+
+file =open('/tmp/1234.txt','w')
+file.write(str(zz))
+file.close()
+
+
+
+for i in zz:
+    print(   i[0].split('\n')[0]+'\t\t'+i[1].split('\n')[0]     )
+    print(   i[0].split('\n')[1]+'\t\t'+i[1].split('\n')[1]     )
+    print(   i[0].split('\n')[2]+'\t\t'+i[1].split('\n')[2]     )
+    print(   i[0].split('\n')[3]+'\t\t'+i[1].split('\n')[3])
+    print(   i[0].split('\n')[4]+'\t\t'+i[1].split('\n')[4]     )
+    print(   i[0].split('\n')[5]+'\t'+i[1].split('\n')[5]     )
+    print(   i[0].split('\n')[6]+'\t\t'+i[1].split('\n')[6]     )
+    print('**'*30)
+
+#for i in sortinfo:
+#    print(i)
+#print("*" *100)
+#for i in sortinfo2:
+#    print(i)
 
 #now =datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
