@@ -93,7 +93,7 @@ for i in zz:
     print(   i[0].split('\n')[4]+'\t\t'+i[1].split('\n')[4]     )
     print(   i[0].split('\n')[5]+'\t'+i[1].split('\n')[5]     )
     print(   i[0].split('\n')[6]+'\t\t'+i[1].split('\n')[6]     )
-    print('**'*30)
+    print('*'*88)
 
 #for i in sortinfo:
 #    print(i)
