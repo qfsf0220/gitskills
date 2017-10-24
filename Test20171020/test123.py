@@ -3,6 +3,7 @@ import  time
 from selenium import  webdriver
 import  unittest
 import  sys
+import datetime
 from selenium.webdriver.common.keys import Keys
 
 class checkWeb(unittest.TestCase):
@@ -60,8 +61,14 @@ while 1:
         cw.lettest2()
     elif int(nowtime) >1830 :
         print("Notice:now has out of office time  (%s)" % nowtime)
-        timetotomorrow=time.asctime(time.localtime())
-        print("wait for 50400 seconds.")
+        now = time.ctime()
+        tomorrowtmp = now.split()
+        tomorrowtmp[3]="08:55:00"
+        tomorrowtmp[2]=str(datetime.date.today()+datetime.timedelta(days=1)).split('-')[2]
+        from functools import reduce
+        tomorrow = reduce(lambda x, y: x + ' ' + y, tomorrowtmp)
+        secondtotomorrow = time.mktime(time.strptime(tomorrow,"%a %b %d %H:%M:%S %Y"))-time.mktime(time.strptime(time.asctime()))
+        print("wait for " + str(secondtotomorrow)+ " seconds.")
         time.sleep(50400)
     else:
         print("now has pass 9 clock")
