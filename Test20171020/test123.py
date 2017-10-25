@@ -4,6 +4,8 @@ from selenium import  webdriver
 import  unittest
 import  sys
 import datetime
+
+from selenium.common.exceptions import NoSuchElementException, NoSuchWindowException
 from selenium.webdriver.common.keys import Keys
 
 class checkWeb(unittest.TestCase):
@@ -34,17 +36,22 @@ class checkWeb(unittest.TestCase):
             print("web .. Success")
         else:
             # elem = driver.find_element_by_xpath("//*[@id='un-userName']")
-            elem =driver.find_element_by_id("un-userName")
-            elem.send_keys("feng.qian")
-            # elem2 = driver.find_element_by_xpath("//*[@id='un-password']")
-            elem2 = driver.find_element_by_id("un-password")
-            elem2.send_keys("qq@1234qwer")
-            elem3 = driver.find_element_by_id("un-login")
-            print(elem3.text)
-            # elem3 = driver.find_element_by_xpath("//*[@id='un-login']")
-            elem3.click()
+            try:
+                elem =driver.find_element_by_id("un-userName")
+                elem.send_keys("fq")
+                # elem2 = driver.find_element_by_xpath("//*[@id='un-password']")
+                elem2 = driver.find_element_by_id("un-password")
+                elem2.send_keys("3x1234qwer")
+                elem3 = driver.find_element_by_id("un-login")
+                print(elem3.text)
+                # elem3 = driver.find_element_by_xpath("//*[@id='un-login']")
+                elem3.click()
+            except NoSuchElementException  as e:
+                print("Error: There have no element.")
+            except NoSuchWindowException as e:
+                print("Error: Window has been closed.")
         time.sleep(3)
-        # driver.quit()
+        driver.quit()
         # print(driver.page_source)
         # assert "No Result Found" not in driver.page_source
         def tearDown(self):
@@ -54,8 +61,8 @@ class checkWeb(unittest.TestCase):
 int_a = 1
 while 1:
     nowtime = (time.asctime(time.localtime()).split(' ')[3].split(':')[0]+time.asctime(time.localtime()).split(' ')[3].split(':')[1])
-    if int(nowtime) <900 and int(nowtime)>850:
-        print("now almost 9 clock")
+    if int(nowtime) < 915 and int(nowtime) > 845:
+        print("Notice:now almost 9 clock  (%s)" % nowtime)
         cw = checkWeb()
         cw.openWeb()
         cw.lettest2()
@@ -67,14 +74,16 @@ while 1:
         tomorrowtmp[2]=str(datetime.date.today()+datetime.timedelta(days=1)).split('-')[2]
         from functools import reduce
         tomorrow = reduce(lambda x, y: x + ' ' + y, tomorrowtmp)
+        print(tomorrow)
         secondtotomorrow = time.mktime(time.strptime(tomorrow,"%a %b %d %H:%M:%S %Y"))-time.mktime(time.strptime(time.asctime()))
         print("wait for " + str(secondtotomorrow)+ " seconds.")
-        time.sleep(50400)
     else:
-        print("now has pass 9 clock")
-        print(str("%d") % int_a *22)
-        cw =checkWeb()
+        print("Notice:now has pass 9 clock  (%s)" % nowtime)
+        print(str("%d") % int_a * 22)
+        cw = checkWeb()
         cw.openWeb()
         cw.lettest2()
-        int_a+=1
-        time.sleep(random.randrange(600,3600))
+        int_a += 1
+        randomtime = random.randrange(600, 1700)
+        print("   - wait for %s seconds" % randomtime)
+        time.sleep(randomtime)
