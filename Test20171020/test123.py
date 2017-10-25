@@ -5,7 +5,7 @@ import  unittest
 import  sys
 import datetime
 
-from selenium.common.exceptions import NoSuchElementException, NoSuchWindowException
+from selenium.common.exceptions import NoSuchElementException, NoSuchWindowException,ElementNotVisibleException
 from selenium.webdriver.common.keys import Keys
 
 class checkWeb(unittest.TestCase):
@@ -34,6 +34,13 @@ class checkWeb(unittest.TestCase):
         ee=driver.page_source
         if "Success." in ee:
             print("web .. Success")
+            try:
+                if driver.find_element_by_id("ms-sureBtn"): #//*[@id="ms-sureBtn"]
+                    driver.find_element_by_id("ms-sureBtn").click()
+                    time.sleep(2)
+                    driver.find_element_by_id("refresh").click()#//*[@id="refresh"]
+            except NoSuchElementException as e:
+                print("Notice: Now Loginng ok. (No element :refresh or ms-sureBtn)")
         else:
             # elem = driver.find_element_by_xpath("//*[@id='un-userName']")
             try:
@@ -48,14 +55,18 @@ class checkWeb(unittest.TestCase):
                 elem3.click()
             except NoSuchElementException  as e:
                 print("Error: There have no element.")
+            except ElementNotVisibleException as e:
+                print("Error: Element can not visible.")
             except NoSuchWindowException as e:
                 print("Error: Window has been closed.")
         time.sleep(3)
         driver.quit()
+
         # print(driver.page_source)
         # assert "No Result Found" not in driver.page_source
         def tearDown(self):
             self.driver.close()
+
 
 # if __name__=='__main__':
 int_a = 1
@@ -79,7 +90,7 @@ while 1:
         print("wait for " + str(secondtotomorrow)+ " seconds.")
     else:
         print("Notice:now has pass 9 clock  (%s)" % nowtime)
-        print(str("%d") % int_a * 22)
+        # print(str("%d") % int_a * 22)
         cw = checkWeb()
         cw.openWeb()
         cw.lettest2()
