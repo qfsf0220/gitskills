@@ -5,7 +5,7 @@ import  unittest
 import  sys
 import datetime
 
-from selenium.common.exceptions import NoSuchElementException, NoSuchWindowException,ElementNotVisibleException
+from selenium.common.exceptions import NoSuchElementException, NoSuchWindowException,ElementNotVisibleException,StaleElementReferenceException
 from selenium.webdriver.common.keys import Keys
 
 class checkWeb(unittest.TestCase):
@@ -59,6 +59,8 @@ class checkWeb(unittest.TestCase):
                 print("Error: Element can not visible.")
             except NoSuchWindowException as e:
                 print("Error: Window has been closed.")
+            except StaleElementReferenceException as e:
+                print("Error: Input info possible wrong.")
         time.sleep(3)
         driver.quit()
 
