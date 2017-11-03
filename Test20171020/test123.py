@@ -6,7 +6,7 @@ import  sys
 import datetime
 import re
 
-from selenium.common.exceptions import NoSuchElementException, NoSuchWindowException,ElementNotVisibleException,StaleElementReferenceException
+from selenium.common.exceptions import NoSuchElementException, NoSuchWindowException,ElementNotVisibleException,StaleElementReferenceException,WebDriverException
 from selenium.webdriver.common.keys import Keys
 
 class checkWeb(unittest.TestCase):
@@ -62,6 +62,8 @@ class checkWeb(unittest.TestCase):
                 print("Error: Window has been closed.")
             except StaleElementReferenceException as e:
                 print("Error: Input info possible wrong.")
+            except WebDriverException as e:
+                print("Error:webdriver chrome not reachable.")
         time.sleep(3)
         driver.quit()
 
