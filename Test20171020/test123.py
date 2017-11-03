@@ -4,6 +4,7 @@ from selenium import  webdriver
 import  unittest
 import  sys
 import datetime
+import re
 
 from selenium.common.exceptions import NoSuchElementException, NoSuchWindowException,ElementNotVisibleException,StaleElementReferenceException
 from selenium.webdriver.common.keys import Keys
@@ -45,10 +46,10 @@ class checkWeb(unittest.TestCase):
             # elem = driver.find_element_by_xpath("//*[@id='un-userName']")
             try:
                 elem =driver.find_element_by_id("un-userName")
-                elem.send_keys("fq")
+                elem.send_keys("feng.qian")
                 # elem2 = driver.find_element_by_xpath("//*[@id='un-password']")
                 elem2 = driver.find_element_by_id("un-password")
-                elem2.send_keys("3x1234qwer")
+                elem2.send_keys("qq@1234qwer")
                 elem3 = driver.find_element_by_id("un-login")
                 print(elem3.text)
                 # elem3 = driver.find_element_by_xpath("//*[@id='un-login']")
@@ -73,12 +74,13 @@ class checkWeb(unittest.TestCase):
 # if __name__=='__main__':
 int_a = 1
 while 1:
-    nowtime = (time.asctime(time.localtime()).split(' ')[3].split(':')[0]+time.asctime(time.localtime()).split(' ')[3].split(':')[1])
+    nowtime = re.sub('  ',' ',time.asctime()).split(' ')[3].split(':')[0]+re.sub('  ',' ',time.asctime()).split(' ')[3].split(':')[1]
     if int(nowtime) < 915 and int(nowtime) > 845:
         print("Notice:now almost 9 clock  (%s)" % nowtime)
         cw = checkWeb()
         cw.openWeb()
         cw.lettest2()
+        time.sleep(120)
     elif int(nowtime) >1830 :
         print("Notice:now has out of office time  (%s)" % nowtime)
         now = time.ctime()
@@ -90,6 +92,7 @@ while 1:
         print(tomorrow)
         secondtotomorrow = time.mktime(time.strptime(tomorrow,"%a %b %d %H:%M:%S %Y"))-time.mktime(time.strptime(time.asctime()))
         print("wait for " + str(secondtotomorrow)+ " seconds.")
+        time.sleep(secondtotomorrow)
     else:
         print("Notice:now has pass 9 clock  (%s)" % nowtime)
         # print(str("%d") % int_a * 22)
@@ -97,6 +100,6 @@ while 1:
         cw.openWeb()
         cw.lettest2()
         int_a += 1
-        randomtime = random.randrange(600, 1700)
+        randomtime = random.randrange(1200, 1800)
         print("   - wait for %s seconds" % randomtime)
         time.sleep(randomtime)

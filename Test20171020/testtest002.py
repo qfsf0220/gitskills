@@ -4,6 +4,7 @@ import logging
 class logtest():
     def test001(self):
         logger = logging.getLogger()
+        logging.info("是否传给父记录器:"+str(logger.propagate))#用于指示消息是否传播给父记录器
         logger.setLevel(logging.INFO)#总等级
 
         logfile ="./logger.txt"
@@ -32,7 +33,8 @@ class logtest():
         """
         filehandler.setFormatter(outformat)
         screenhandler.setFormatter(outformat)
-        logger.addHandler(filehandler)
+        logger.addHandler(filehandler)#指定过滤器
+        # logger.removeFilter(filehandler)#删除过滤器
         logger.addHandler(screenhandler)
 
         logger.info("info")
@@ -44,10 +46,11 @@ class logtest():
 
     def main(self):
         logging.basicConfig(level=logging.INFO)
-        logging.info("111 test start!")
-        logging.info("111------------")
+        logging.getLogger("qfqf").info('%s~%s~%s   ---',*("qqq",'fff','rrr'))
         self.test001()
-        logging.info("222------------")
+        logging.getLogger("sfsf").info("%(q)s,%(f)s   ---",{"q":"111","f":"222"})
+        logging.log(logging.INFO,'也可以1：[%(q)s + %(f)s]',{"q":"qqq","f":"fff"})
+        logging.log(logging.INFO,'也可以2：[%s + %s]',*("sss","fff"))
         logging.info("222 test stop!")
 
 if __name__ == '__main__':
