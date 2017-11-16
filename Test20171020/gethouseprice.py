@@ -13,7 +13,7 @@ headers={"Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/w
 "Referer":"http://sh.lianjia.com/",
 "Upgrade-Insecure-Requests":"1" ,
 "User-Agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"}
-houselist = ["徐汇华园","盛华景苑","南方新村","长桥一村","光华园","印象欧洲（公寓）","华泾绿苑","新凯家园","银泰苑","老总的高端小区","华欣家园","东湾小区","新弘国际城（公寓）","华滨家园","贫民窟","镇政府","垃圾场"]
+houselist = ["徐汇华园","盛华景苑","南方新村","长桥一村","光华园","印象欧洲（公寓）","华泾绿苑","新凯家园","银泰苑","老总的高端小区","华欣家园","东湾小区","新弘国际城（公寓）","华滨家园","贫民窟"]
 info_list=[]
 def get(name):
     url= "http://sh.lianjia.com/ershoufang/rs%s" % name
@@ -29,25 +29,51 @@ def get(name):
     except UnboundLocalError as e:
         info_list.append(name + ": 这个小区可能不存在，请检查")
     except ConnectionError as e:
-        info_list.append("网站访问不可达")
+        info_list.append("网站大概有问题")
 
 from tkinter import *
 def mylabel():
+    s1 = e1.get()
+    houselist.append(s1)
+    print(houselist)
     for i in houselist:
         get(i)
-    info_list_sorted = sorted(info_list, key=lambda x: x.split(' ')[1])
+
+    info_list_sorted = sorted(list(set(info_list)), key=lambda x: x.split(' ')[1])
     textprint =reduce(lambda x,y:x+'\n'+y,info_list_sorted)
-    s=Label(root,text=textprint)
-    s.pack()
+    # s=Label(root,text=textprint)
+    # s.pack(side=BOTTOM,expand=YES,fill=BOTH)
+
+    if t:
+        t.delete(1.0,END)
+        t.insert(1.0, textprint)
 
 root =Tk()
 root.wm_title("简易房价查询")
-root.geometry("300x400")
+root.geometry("320x400")
+
+t = Text(root,width=10,height=10)
+scroll = Scrollbar(root)
+scroll.pack(side=RIGHT,fill=BOTH)
+t.pack(side=BOTTOM, expand=YES,fill=BOTH)
+scroll.config(command=t.yview)
+t.config(yscrollcommand=scroll.set)
+
+w3 = Label(root,text="Powered by qf",relief="solid",borderwidth=1)
+w3.pack(anchor=NE)
 w1= Label(root,text="点击 \"查询\" 查看",background="pink")
 w1.pack()
 
+w2=Label(root,text="自定义小区名:")
+w2.pack(side=TOP,fill=NONE)
+
+e1=Entry(root)
+e1.pack(anchor=CENTER)
+
+
+
 b1 = Button(root,text="查询",command=mylabel)
-b1.pack(side=BOTTOM)
+b1.pack(anchor=CENTER)
 w1.mainloop()
 
 
