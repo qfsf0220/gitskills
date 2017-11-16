@@ -1,6 +1,7 @@
 import requests
 from pyquery import PyQuery as pq
-from  multiprocessing import  Process,Pool
+# from  multiprocessing import  Process,Pool
+from functools import reduce
 
 headers={"Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
 "Accept-Encoding":"gzip, deflate",
@@ -12,32 +13,41 @@ headers={"Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/w
 "Referer":"http://sh.lianjia.com/",
 "Upgrade-Insecure-Requests":"1" ,
 "User-Agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36"}
-houselist = ["徐汇华园","盛华景苑","南方新村","长桥一村","光华园","印象欧洲（公寓）","华泾绿苑","新凯家园","银泰苑","老总的高端小区"]
+houselist = ["徐汇华园","盛华景苑","南方新村","长桥一村","光华园","印象欧洲（公寓）","华泾绿苑","新凯家园","银泰苑","老总的高端小区","华欣家园","东湾小区","新弘国际城（公寓）","华滨家园","贫民窟","镇政府","垃圾场"]
+info_list=[]
 def get(name):
     url= "http://sh.lianjia.com/ershoufang/rs%s" % name
     a = requests.get(url=url,headers=headers)
     try:
         num = pq(a.text)('.m-side-bar').text()
         a = num.split(' ')
-        houseinfo=(a[0]+": "+"\033[0;31m%s\033[0m"%a[7]+" 元每平米 正在出售:"+a[10]+"套" )
-        return (houseinfo)
+        # houseinfo=(a[0]+": "+"\033[0;31m%s\033[0m"%a[7]+" 元每平米 正在出售:"+a[10]+"套" )
+        houseinfo=(a[0]+": %s"%a[7]+" 元每平米 正在出售:"+a[10]+"套" )
+        info_list.append(houseinfo)
     except IndexError  as e:
-        return(name+": 这个小区可能不存在，请检查")
+        info_list.append(name+": 这个小区可能不存在，请检查")
     except UnboundLocalError as e:
-        return(name + ": 这个小区可能不存在，请检查")
+        info_list.append(name + ": 这个小区可能不存在，请检查")
     except ConnectionError as e:
-        return("网站访问不可达")
+        info_list.append("网站访问不可达")
 
-if __name__ == '__main__':
-    # for i in range(len(houselist)):
-    #     p=multiprocessing.Process(target=get,args=(houselist[i],))
-    #     p.start()
-    info_list = []
-    with Pool(4) as p:
-        info_list = p.map(get,houselist)
+from tkinter import *
+def mylabel():
+    for i in houselist:
+        get(i)
+    info_list_sorted = sorted(info_list, key=lambda x: x.split(' ')[1])
+    textprint =reduce(lambda x,y:x+'\n'+y,info_list_sorted)
+    s=Label(root,text=textprint)
+    s.pack()
 
-    while None in info_list:
-        info_list.remove(None)
-    for i in (sorted(info_list,key=lambda x:x.split(' ')[1])):
-        print(i)
+root =Tk()
+root.wm_title("简易房价查询")
+root.geometry("300x400")
+w1= Label(root,text="点击 \"查询\" 查看",background="pink")
+w1.pack()
+
+b1 = Button(root,text="查询",command=mylabel)
+b1.pack(side=BOTTOM)
+w1.mainloop()
+
 
