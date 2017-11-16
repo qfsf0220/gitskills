@@ -1,4 +1,4 @@
-import  Tkinter as tk
+import  tkinter as tk
 
 class App(object):
     def __init__(self,master):
@@ -8,7 +8,7 @@ class App(object):
         print("helooo..boss")
 
 root =tk.Tk()
-root.title('this is window')
+root.title('你们好下班了')
 root.geometry('300x200')
 
 app=App(root)
