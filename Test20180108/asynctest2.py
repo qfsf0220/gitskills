@@ -55,7 +55,7 @@ tasks = [hello(x) for x in range(10) ]
 loop.run_until_complete(asyncio.wait(tasks))
 loop.close()
 
-
+import time
 import aiohttp
 async def get(url):
     async with aiohttp.ClientSession() as session:
@@ -63,8 +63,12 @@ async def get(url):
             print(url,resp.status)
             print(url,await resp.text())
 
+time1 = time.time()
+
 loop = asyncio.new_event_loop()
 tasks= [get("http://www.qianfanedu.cn/forum-195-%s.html" % str(x) )   for  x  in range(2,10)  ]
 # tasks= [get("http://www.qianfanedu.cn/forum-195-5.html") , get("http://www.qianfanedu.cn/forum-195-6.html") ,get("http://www.qianfanedu.cn/forum-195-7.html")  ]
 loop.run_until_complete(asyncio.wait(tasks))
 loop   .close()
+time2 = time.time()
+print("Use:(%s)seconds" % str(time2-time1))
