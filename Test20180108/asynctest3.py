@@ -58,7 +58,7 @@ dicttest["薪酬"]=jobname[2]
 dicttest["公司名字"]=jobname[3]
 dicttest["公司性质"]=jobname[5]
 dicttest["公司规模"]=jobname[7]
-dicttest["公司类别"]=jobname[9]
+# dicttest["公司类别"]=jobname[9]
 dicttest["公司地址"]=jobaddress
 dicttest["工作经验"]=joborder.split(' ')[0]
 dicttest["招聘人数"]=joborder.split(' ')[1]
@@ -94,9 +94,14 @@ async def get(url):
             dicttest["公司规模"] = jobname[7]
             # dicttest["公司类别"] = jobname[9]
             dicttest["公司地址"] = jobaddress
-            dicttest["工作经验"] = joborder.split(' ')[0]
-            dicttest["招聘人数"] = joborder.split(' ')[1]
-            dicttest["发布时间"] = joborder.split(' ')[2]
+            if len(joborder.split(' '))==3:
+                dicttest["工作经验"] = joborder.split(' ')[0]
+                dicttest["招聘人数"] = joborder.split(' ')[1]
+                dicttest["发布时间"] = joborder.split(' ')[2]
+            else:
+                dicttest["工作经验"] = joborder.split(' ')[0]
+                dicttest["招聘人数"] = joborder.split(' ')[2]
+                dicttest["发布时间"] = joborder.split(' ')[3]
             # dicttest["岗位职责"]=re.split('： ',jobask)[1]+re.split('： ',jobask)[2]
             dicttest["岗位职责"] = jobask
             print(dicttest)
