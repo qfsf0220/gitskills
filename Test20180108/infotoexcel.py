@@ -45,7 +45,7 @@ async def get(url):
             if '/月' in jobname[2]:
                 dicttest["薪酬"] = jobname[2]
             else:
-                dicttest["薪酬"]="请面谈"
+                dicttest["薪酬"]="请面谈^ ^"
             dicttest["公司名字"] = jobname[3]
             dicttest["公司性质"] = jobname[5]
             dicttest["公司规模"] = jobname[7]
@@ -64,7 +64,7 @@ async def get(url):
             infolist.append(dicttest)
 infolist=[]
 
-for i in range(1,2):
+for i in range(1,5):
     url="http://search.51job.com/jobsearch/search_result.php?fromJs=1&jobarea=020000%2C00&district=000000&funtype=0000&industrytype=00&issuedate=9&providesalary=99&keyword=%E8%BF%90%E7%BB%B4&keywordtype=2&curr_page={}&lang=c&stype=1&postchannel=0000&workyear=99&cotype=99&degreefrom=99&jobterm=99&companysize=99&lonlat=0%2C0&radius=-1&ord_field=0&list_type=0&fromType=14&dibiaoid=0&confirmdate=9".format(i)
     s.post(url,headers=headers)
 
@@ -80,15 +80,14 @@ for i in range(1,2):
     import re
     a= re.findall(r'http://.*t=0',a3)
     a.pop(0)
-    print(a)
 
     loop = asyncio.new_event_loop()
     tasks =[get("%s" % x)  for x in a]
     loop.run_until_complete(asyncio.wait(tasks))
     loop.close()
 
-print("#############"*666)
-print(infolist)
+print("#############"*666+"\nDone")
+# print(infolist)
 
 workbook = xlsxwriter.Workbook("test.xlsx")
 worksheet = workbook.add_worksheet()
