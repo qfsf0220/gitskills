@@ -87,6 +87,8 @@ class Father:
 class Son(Father): #这里继承 father类
 # class Son(Father,bendiren,shiquren): #多重继承 father bendiren shiquren
 #多继承 中 所继承的父类 是有优先级的 是 从左往右 找 如果有同样方法 先继承左面的父类
+#经典类 的多继承 查找顺序是从左先向上查找到顶 在往回查（所谓深度优先）
+#新式类 的多继承 查找顺序先从平级类逐层向上查询 (广度优先)
     def __init__(self):
         self.name="ss"
         Father.__init__(self) #显式调用父类的构造方法 （1）
@@ -96,15 +98,30 @@ class Son(Father): #这里继承 father类
     def funcfa2(self): #重写 父类的 funcfa2 方法
         print("change to son func2")
     def funcfa(self):
-        Father.funcfa(self)
+        Father.funcfa(self)#调用父类动态方法
         print("addtion son func")
 
-print("++"*10)
+
 s1 = Son()
 s1.funcfa() #通过子类对象 调用父类方法
 
+print("++"*10)
 
+#抽象类 加上 抽象方法  = interface 接口
+from  abc import abstractclassmethod,ABCMeta
+class interftest:
+    __metaclass__ =ABCMeta #这里定义抽象类
+    @abstractclassmethod #这里定义抽象方法
+    def Send(self):
+        pass
 
+class Foo(interftest):#继承接口
+    def __init__(self):
+        print("__init____init____init__")
+    def Send(self):  #py2里面必须要实现 接口的抽象方法，不然有typeErr，py3貌似没有也没问题。
+        print("这里实现接口")
+f=Foo()
+f.Send()
 
 
 
