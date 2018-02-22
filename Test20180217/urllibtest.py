@@ -21,11 +21,10 @@ print(rep2.read())
 ### 测试超时错误，如果连接使用超过0.1秒 报URLerror 的错
 import socket
 import urllib.error
-
 try:
     rep3 = urllib.request.urlopen("http://httpbin.org/get",timeout=0.1)
 except urllib.error.URLError as a:
-    if isinstance(a.reason,socket.timeout):
+    if isinstance(a.reason,socket.timeout):#e.reson 是一个class 获得error的类型
         print("time out ...")
 print(socket.timeout)
 print(type(socket.timeout))
@@ -71,8 +70,53 @@ for i in cookie:
     print(i.name + " = "+ i.value)
 ##保存coockie信息为文本来复用
 filename = "cookie.txt"
-ck=http.cookiejar.MozillaCookieJar(filename)
+ck=http.cookiejar.MozillaCookieJar(filename)#(用mozilla方式保存cookie)mozillacookiejar是cookiejar的子类
+#LWP方式保存cookie http.cookiejar.LWPCookieJar(filename)
 handler=urllib.request.HTTPCookieProcessor(ck)
 opener =urllib.request.build_opener(handler)
 req7 = opener.open("http://qq.com")
 ck.save(ignore_discard=True,ignore_expires=True)
+##读取cookie ,用什么方式存的 用什么方式读取
+cookie = http.cookiejar.MozillaCookieJar()
+# cookie = http.cookiejar.LWPCookieJar()
+cookie.load("cookie.txt",ignore_discard=True,ignore_expires=True)
+handler = urllib.request.HTTPCookieProcessor(cookie)
+opener = urllib.request.build_opener(handler)
+req8 = opener.open("http://www.baidu.com")
+print(req8.read().decode("utf-8"))
+
+
+###########异常处理######
+try:
+    req9 = urllib.request.urlopen("http://aaaasdsadwqr.com")
+except urllib.error.URLError as e:
+    print(e.reason)
+
+try: #先捕捉httperror 基类 再捕捉 urlerror 子类
+    req10 = urllib.request.urlopen("http://wqweda.csdf")
+except urllib.error.HTTPError as e:
+    print(e.reason,e.code,e.headers,sep="--")
+except urllib.error.URLError as  e:
+    print(e.reason)
+else:
+    print("request successfully")
+
+#####URL  parse #####
+#urlparse
+result = urllib.parse.urlparse("http://172.18.100.51/zabbix/zabbix.php?action=dashboard.view")
+print(type(result),result)
+#urlunparse
+data= ['http','www.qq.com','index.html','user','a=6','comment']
+print(urllib.request.urlunparse(data))  #还原成url链接
+#urljoin
+print(urllib.parse.urljoin("http://www.baidu.com","FAQ.html"))
+#http://www.baidu.com/FAQ.html
+print(urllib.parse.urljoin("http://www.baidu.com","http://www.qqq.com/123"))
+#http://www.qqq.com/123  后面覆盖前面
+#urlencode  把字典文件拼接到url 上
+dict1={"abc":"123"}
+url1="http://qq.com"+urllib.parse.urlencode(dict1)
+print(url1)
+
+
+
