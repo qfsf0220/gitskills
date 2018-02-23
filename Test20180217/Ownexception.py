@@ -1,5 +1,7 @@
 class  buduile(Exception):
-    pass
+    def __init__(self,a):
+        self.a=a
+        return self.a
 
 # raise buduile("this is a own exception test")
 class budui2(Exception):
@@ -30,3 +32,4 @@ except budui2 as e:
     print(e)
 
 
+raise buduile("zhege jiushi cuowu xinxi ")
