@@ -26,18 +26,10 @@ name : 'qf',
 from : 'shanghai',
 }
 ```
-[link](http://qfsf0220.win)
+[myweb](http://qfsf.link)
 
 ------
 
 this is a test
 --------------
-test 2
-* * *
-test 3
-* * *
 
-This is a normal paragraph.
-
-    社防晒服自行车水电费
-    水电费
