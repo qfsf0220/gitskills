@@ -1,6 +1,6 @@
 # gitskills
 
-* this is a test flask
+* this is my python 
 rookie learning
 
 **test**
