@@ -5,9 +5,9 @@ qr = qrcode.QRCode(version=None,
                    box_size=10,
                    border=2)
 
-url="qfsf.link"
+url="羡慕你们这帮老总"
 qr.add_data(url)
 qr.make(fit=True)
 img= qr.make_image()
-img.save('e:\\ttttttttttttt.png')
+img.save('E:\\tttttt2.png')
 
