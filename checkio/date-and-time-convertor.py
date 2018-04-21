@@ -1,6 +1,11 @@
+import datetime,re
 def date_time(time):
-    #replace this for solution
-    return time
+    a=(re.split('[. :]',time))
+    aa =datetime.datetime.strftime(datetime.datetime(2018, int(a[1]), 1, 1, 1,1, 1),"%B")
+    if a[3]=='01' or a[4]=="01":
+        return(str(int(a[0]))+' '+aa+" "+a[2]+" year "+str(int(a[3]))+ " hour " +str(int(a[4]))+" minute" )
+    else:
+        return(str(int(a[0]))+' '+aa+" "+a[2]+" year "+str(int(a[3]))+ " hours " +str(int(a[4]))+" minutes" )
 
 if __name__ == '__main__':
     print("Example:")
