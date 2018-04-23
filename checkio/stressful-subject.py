@@ -5,6 +5,9 @@ def is_stressful(subj):
     needlist.append(needletter)
     print(needlist)
     tmplist=[]
+    flag=False
+    flag2=False
+
 
     for i in range(len(needlist[0])-1):
         if needletter[i] != needletter[i+1]:
@@ -14,8 +17,7 @@ def is_stressful(subj):
     result = ''.join(tmplist)
     print(result)
 
-    flag=False
-    flag2=False
+
 
     has3gantan= subj.endswith("!!!")
     isUpall = [x for x in filter (lambda  x : x in string.ascii_lowercase,subj) ]
