@@ -38,5 +38,6 @@ if __name__ == '__main__':
     assert checkio(3, 4, 5) == [37, 53, 90], "Egyptian triangle"
     assert checkio(2, 2, 5) == [0, 0, 0], "It's can not be a triangle"
     assert checkio(11,20,30) == [11,20,149], "It's can not be a triangle"
+    assert checkio([11,20,30]) == [11,20,149], "It's can not be a triangle"
 
 
