@@ -40,3 +40,51 @@ print(type(getff))
 print(getff.__closure__)
 
 getff(2)
+
+
+print("*******************"*3)
+
+def my_sum(*aaa):
+    if len(aaa) ==0:
+        return "can not sum"
+    for i in aaa:
+        if not isinstance(i,int):
+            return "can not sum"
+    return sum(aaa)
+
+def my_average(*aaa):
+    if len(aaa) ==0:
+        return "can not average"
+    for i in aaa:
+        if not isinstance(i,int):
+            return "can not average"
+    return sum(aaa)/len(aaa)
+
+print(my_sum(1, 2, 3, 4, '5'))
+print(my_average(1, 2, 3, 4, '5'))
+
+def mysum(*a):
+    return sum(a)
+def myavg(*a):
+    return sum(a)/len(a)
+
+
+def bibaofunc(func):
+    def inthefunc(*aa):
+        print("func:",func)
+        print("aa:",aa)
+        return func(*aa)
+    return inthefunc
+
+mysum  = bibaofunc(mysum)
+print("mysum:",mysum)
+print(mysum(1,2,3))
+
+
+@bibaofunc
+def mysum2(*a):
+    print(sum(a))
+
+mysum2(1,2,3,4)
+
+
