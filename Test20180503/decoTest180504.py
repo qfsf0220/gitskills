@@ -16,7 +16,7 @@ def x(a):
     def y(b):
         print("y")
         print(a)
-        return(b)
+        return (b)
     return y
 
 @x(123)
